@@ -1,5 +1,6 @@
 import os
 import json
+import hashlib
 from string import find
 from django.conf import settings
 from django.test import TestCase, client
@@ -36,3 +37,12 @@ class HelloTest(TestCase):
         self.failIfEqual(i1,-1)
         self.failIfEqual(i2,-1)
         self.failIfEqual(i3,-1)
+
+class MiddlewareTest(TestCase):
+
+    def test_middleware(self):
+        hash_path = '/' + hashlib.sha1('middleware test').hexdigest() + '/'
+        self.client = client.Client()
+        self.client.get(hash_path)
+        # Потім спробовати знайти по шляху запис у базі
+        self.failIfEqual(1,1) # Поки що заглушка
