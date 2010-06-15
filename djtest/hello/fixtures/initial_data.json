@@ -1,0 +1,11 @@
+[
+    {
+        "model": "hello.contacts",
+        "pk": "1",
+        "fields": {
+            "first_name": "Max",
+            "last_name": "Yuzhakov",
+            "contact_email": "gmt.more@gmail.com"
+        }
+    }
+]
