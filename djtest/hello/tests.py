@@ -1,11 +1,15 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*- 
 
 import os
 import json
 import hashlib
 from string import find
+
 from django.conf import settings
 from django.test import TestCase, client
+
+from djtest.hello.models import HttpReqs
 
 class HelloTest(TestCase):
 
@@ -46,5 +50,6 @@ class MiddlewareTest(TestCase):
         hash_path = '/' + hashlib.sha1('middleware test').hexdigest() + '/'
         self.client = client.Client()
         self.client.get(hash_path)
+
         # Потім спробовати знайти по шляху запис у базі
-        self.failIfEqual(1,1) # Поки що заглушка
+        http_req = HttpReqs.objects.get(req_path=hash_path)
