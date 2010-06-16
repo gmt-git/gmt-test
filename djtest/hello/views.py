@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response
 from djtest.hello.models import Contacts
 
 def home_page(request):
-    obj = Contacts.objects.get(id=1)
+    obj = Contacts.objects.get(contact_email='gmt.more@gmail.com')
     
     return render_to_response('home_page.html',
         {
