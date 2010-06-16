@@ -11,9 +11,8 @@ class HttpReqs(models.Model):
 
     date = models.DateTimeField()
     method = models.CharField(max_length=10)
-    path = models.CharField(max_length=300)
-    GET = models.TextField()
-    POST = models.TextField()
+    full_path = models.CharField(max_length=300)
+    meta = models.TextField()
     cookies = models.TextField()
 
 
