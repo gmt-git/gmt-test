@@ -7,5 +7,19 @@
             "last_name": "Yuzhakov",
             "contact_email": "gmt.more@gmail.com"
         }
+    },
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "username": "admin",
+            "first_name": "Max",
+            "last_name": "Yuzhakov",
+            "email": "gmt.more@gmail.com",
+            "password": "sha1$bfb2f$963a0ea326efc15d908d1258dab4bfffea5a9f83",
+            "is_staff": 1,
+            "is_active": 1,
+            "is_superuser": 1
+        }
     }
 ]
