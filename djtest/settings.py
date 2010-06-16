@@ -76,6 +76,10 @@ TEMPLATE_DIRS = (
     os.path.join(PROJ_ROOT, 'templates')
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'djtest.hello.views.settings_cxpr',
+)
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -56,3 +56,11 @@ class MiddlewareTest(TestCase):
 
         req_tuple = (http_req.date, http_req.method, http_req.full_path, \
             http_req.meta, http_req.cookies)
+
+class TemplateCxPrTest(TestCase):
+
+    def test_settings_installed_apps(self):
+        self.client = client.Client()
+        response = self.client.get('/cxpr_test/')
+        i = find(response.content, 'djtest.hello')
+        self.failIfEqual(i,-1)

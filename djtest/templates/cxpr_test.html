@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Перевірка Context Processor{% endblock %}
+
+{% block content %}
+<h3>settings.INSTALLED_APPS:</h3>
+    <ul>
+        {% for theapp in settings.INSTALLED_APPS %}
+        <li>{{ theapp }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
