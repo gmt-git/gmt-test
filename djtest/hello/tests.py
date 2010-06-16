@@ -1,8 +1,15 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*- 
+
 import os
 import json
+import hashlib
 from string import find
+
 from django.conf import settings
 from django.test import TestCase, client
+
+from djtest.hello.models import HttpReqs
 
 class HelloTest(TestCase):
 
@@ -36,3 +43,16 @@ class HelloTest(TestCase):
         self.failIfEqual(i1,-1)
         self.failIfEqual(i2,-1)
         self.failIfEqual(i3,-1)
+
+class MiddlewareTest(TestCase):
+
+    def test_middleware(self):
+        hash_path = '/' + hashlib.sha1('middleware test').hexdigest() + '/?test=middleware'
+        self.client = client.Client()
+        self.client.get(hash_path)
+
+        # Потім спробовати знайти по шляху запис у базі
+        http_req = HttpReqs.objects.get(full_path=hash_path)
+
+        req_tuple = (http_req.date, http_req.method, http_req.full_path, \
+            http_req.meta, http_req.cookies)
