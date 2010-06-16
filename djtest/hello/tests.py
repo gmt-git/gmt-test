@@ -60,4 +60,7 @@ class MiddlewareTest(TestCase):
 class TemplateCxPrTest(TestCase):
 
     def test_settings_installed_apps(self):
-        self.failIfEqual(0,0)
+        self.client = client.Client()
+        response = self.client.get('/cxpr_test/')
+        i = find(response.content, 'djtest.hello')
+        self.failIfEqual(i,-1)
