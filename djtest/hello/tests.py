@@ -56,3 +56,8 @@ class MiddlewareTest(TestCase):
 
         req_tuple = (http_req.date, http_req.method, http_req.full_path, \
             http_req.meta, http_req.cookies)
+
+class TemplateCxPrTest(TestCase):
+
+    def test_settings_installed_apps(self):
+        self.failIfEqual(0,0)
