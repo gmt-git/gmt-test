@@ -9,4 +9,11 @@ class Contacts(models.Model):
 
 class HttpReqs(models.Model):
 
-    req_path = models.CharField(max_length=300)
+    date = models.DateTimeField()
+    method = models.CharField(max_length=10)
+    path = models.CharField(max_length=300)
+    GET = models.TextField()
+    POST = models.TextField()
+    cookies = models.TextField()
+
+

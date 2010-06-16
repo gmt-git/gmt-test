@@ -52,7 +52,7 @@ class MiddlewareTest(TestCase):
         self.client.get(hash_path)
 
         # Потім спробовати знайти по шляху запис у базі
-        http_req = HttpReqs.objects.get(req_path=hash_path)
+        http_req = HttpReqs.objects.get(path=hash_path)
 
         req_tuple = (http_req.date, http_req.method, http_req.path, \
             http_req.GET, http_req.POST, http_req.cookies)
