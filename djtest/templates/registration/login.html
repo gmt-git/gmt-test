@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Сторінка авторізації{% endblock %}
+
+{% block content %}
+    <h3>Авторізуйтеся</h3>
+    <hr>
+    <form action="" method="post">
+        <label for="username">І'мя</label>
+        <input type="text" name="username" value="admin" id="username">
+        <label for="password">Пароль</label>
+        <input type="password" name="password" value="admin" id="password">
+        <input type="submit" value="Зайти">
+        <input type="hidden" name="next" value="{{next|escape}}">
+    </form>
+{% endblock %}
+
