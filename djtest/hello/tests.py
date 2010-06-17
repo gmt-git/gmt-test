@@ -81,16 +81,16 @@ class EditFormTest(TestCase):
         # відправляємо нові контакти, потім перевіряємо на головній сторінці
         f_name_sha1 = hashlib.sha1('Max').hexdigest()
         l_name_sha1 = hashlib.sha1('Yuzhakov').hexdigest()
-        email_sha1 = hashlib.sha1('gmt.more@gmail.com').hexdigest()
+        email = 'gmt.more@gmail.com'
 
         post_data = {
             'first_name': f_name_sha1,
             'last_name': f_name_sha1,
-            'contact_email': email_sha1,
+            'contact_email': email,
         }
 
         response = self.client.post('/edit_contacts/', post_data)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
         response = self.client.get('/')
         self.assertContains(response, f_name_sha1)
 
