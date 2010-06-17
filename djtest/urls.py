@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     (r'^$', 'djtest.hello.views.home_page'),
     (r'^cxpr_test/$', 'djtest.hello.views.cxpr_test'),
     (r'^edit_contacts/$', 'djtest.hello.views.edit_contacts'),
-    (r'^auth_req/edit_contacts/$', 'djtest.hello.views.edit_contacts'),
+    (r'^auth_req/edit_contacts/$', 'djtest.hello.views.auth_req_edit_contacts'),
     (r'^accounts/login/$', login),
     (r'^accounts/logout/$', logout),
 

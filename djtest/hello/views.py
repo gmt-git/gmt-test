@@ -24,7 +24,6 @@ def settings_cxpr(request):
 def cxpr_test(request):
     return render_to_response('cxpr_test.html', context_instance=RequestContext(request))
 
-@login_required
 def edit_contacts(request):
     errors = []
     obj = Contacts.objects.all()[0]
@@ -51,3 +50,4 @@ def edit_contacts(request):
             "errors": errors
         })
 
+auth_req_edit_contacts = login_required(edit_contacts)
