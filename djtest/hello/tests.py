@@ -64,3 +64,12 @@ class TemplateCxPrTest(TestCase):
         response = self.client.get('/cxpr_test/')
         i = find(response.content, 'djtest.hello')
         self.failIfEqual(i,-1)
+
+
+class EditFormTest(TestCase):
+
+    def test_form_content(self):
+        self.failIfEqual(0,0)
+
+    def test_form_post(self):
+        self.failIfEqual(0,0)
