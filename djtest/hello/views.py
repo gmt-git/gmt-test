@@ -4,6 +4,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from djtest.hello.models import Contacts
 from django.http import HttpResponseRedirect
 
@@ -48,3 +49,5 @@ def edit_contacts(request):
             "contact_email": obj.contact_email,
             "errors": errors
         })
+
+auth_req_edit_contacts = login_required(edit_contacts)

@@ -94,3 +94,15 @@ class EditFormTest(TestCase):
         response = self.client.get('/')
         self.assertContains(response, f_name_sha1)
 
+
+class AuthReqTest(TestCase):
+
+    def setUp(self):
+        self.client = client.Client()
+
+    def test_auth_required(self):
+        response = self.client.get('/auth_req/edit_contacts/')
+        self.assertRedirects(response, '/accounts/login/?next=/auth_req/edit_contacts/')
+        self.assertTrue(self.client.login(username='admin', password='admin'))
+        response = self.client.get('/auth_req/edit_contacts/')
+        self.failUnlessEqual(response.status_code, 200)
