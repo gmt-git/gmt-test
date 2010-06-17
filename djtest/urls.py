@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     (r'^$', 'djtest.hello.views.home_page'),
     (r'^cxpr_test/$', 'djtest.hello.views.cxpr_test'),
     (r'^edit_contacts/$', 'djtest.hello.views.edit_contacts'),
+    (r'^auth_req/edit_contacts/$', 'djtest.hello.views.edit_contacts'),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:

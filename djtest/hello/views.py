@@ -48,3 +48,4 @@ def edit_contacts(request):
             "contact_email": obj.contact_email,
             "errors": errors
         })
+
