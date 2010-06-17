@@ -9,7 +9,7 @@ from string import find
 from django.conf import settings
 from django.test import TestCase, client
 
-from djtest.hello.models import HttpReqs
+from djtest.hello.models import HttpReqs, Contacts
 
 class HelloTest(TestCase):
 
@@ -68,8 +68,14 @@ class TemplateCxPrTest(TestCase):
 
 class EditFormTest(TestCase):
 
+    def setUp(self):
+        self.client = client.Client()
+
     def test_form_content(self):
-        self.failIfEqual(0,0)
+        #забираємо з бази email, перевіряємо його присутність на сторінці
+        contact_email = Contacts.objects.all()[0].contact_email
+        response = self.client.get('/edit_contacts/')
+        self.assertContains(response, contact_email, 0)
 
     def test_form_post(self):
         self.failIfEqual(0,0)
