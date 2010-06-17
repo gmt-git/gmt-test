@@ -13,7 +13,7 @@ urlpatterns = patterns('',
     (r'^edit_contacts/$', 'djtest.hello.views.edit_contacts'),
     (r'^auth_req/edit_contacts/$', 'djtest.hello.views.auth_req_edit_contacts'),
     (r'^accounts/login/$', login),
-    (r'^accounts/logout/$', logout),
+    (r'^accounts/logout/$', logout, {'next_page': '/'}),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
