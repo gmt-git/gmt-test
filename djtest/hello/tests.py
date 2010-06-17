@@ -78,4 +78,19 @@ class EditFormTest(TestCase):
         self.assertContains(response, contact_email)
 
     def test_form_post(self):
-        self.failIfEqual(0,0)
+        # відправляємо нові контакти, потім перевіряємо на головній сторінці
+        f_name_sha1 = hashlib.sha1('Max').hexdigest()
+        l_name_sha1 = hashlib.sha1('Yuzhakov').hexdigest()
+        email_sha1 = hashlib.sha1('gmt.more@gmail.com').hexdigest()
+
+        post_data = {
+            'first_name': f_name_sha1,
+            'last_name': f_name_sha1,
+            'contact_email': email_sha1,
+        }
+
+        response = self.client.post('/edit_contacts/', post_data)
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get('/')
+        self.assertContains(response, f_name_sha1)
+
