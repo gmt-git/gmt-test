@@ -4,6 +4,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from djtest.hello.models import Contacts
 from django.http import HttpResponseRedirect
 
@@ -23,6 +24,7 @@ def settings_cxpr(request):
 def cxpr_test(request):
     return render_to_response('cxpr_test.html', context_instance=RequestContext(request))
 
+@login_required
 def edit_contacts(request):
     errors = []
     obj = Contacts.objects.all()[0]
