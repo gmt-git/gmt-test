@@ -75,7 +75,7 @@ class EditFormTest(TestCase):
         #забираємо з бази email, перевіряємо його присутність на сторінці
         contact_email = Contacts.objects.all()[0].contact_email
         response = self.client.get('/edit_contacts/')
-        self.assertContains(response, contact_email, 0)
+        self.assertContains(response, contact_email)
 
     def test_form_post(self):
         self.failIfEqual(0,0)

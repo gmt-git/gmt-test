@@ -18,3 +18,15 @@ def settings_cxpr(request):
 
 def cxpr_test(request):
     return render_to_response('cxpr_test.html', context_instance=RequestContext(request))
+
+def edit_contacts(request):
+    if request.method == 'POST':
+        pass 
+    else:
+        obj = Contacts.objects.all()[0]
+        return render_to_response('edit_contacts.html',
+            {
+                "first_name" : obj.first_name,
+                "last_name" : obj.last_name,
+                "contact_email" : obj.contact_email,
+            })
