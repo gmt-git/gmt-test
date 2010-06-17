@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*- 
+
 from datetime import datetime
 from djtest.hello.models import HttpReqs
 

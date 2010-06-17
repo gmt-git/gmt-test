@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*- 
+
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.conf import settings
@@ -31,9 +34,9 @@ def edit_contacts(request):
         if request.POST.get('contact_email') and '@' not in request.POST['contact_email']:
             errors.append("Недійсна email адреса")
         if not errors:
-            obj.first_name = request.POST.['first_name']
-            obj.last_name = request.POST.['last_name']
-            obj.contact_email = request.POST.['contact_email']
+            obj.first_name = request.POST['first_name']
+            obj.last_name = request.POST['last_name']
+            obj.contact_email = request.POST['contact_email']
             obj.save()
             return HttpResponseRedirect('/')
 
