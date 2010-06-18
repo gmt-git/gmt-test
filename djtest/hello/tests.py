@@ -123,8 +123,7 @@ class EditContactsFormTest(TestCase):
 
         # перевірка необхідності авторізації та логін
         response = self.client.get('/edit_contacts_form/')
-        self.assertRedirects(response, \
-            '/accounts/login/?next=/auth_req/edit_contacts_form/')
+        self.assertRedirects(response, '/accounts/login/?next=/edit_contacts_form/')
         self.assertTrue(self.client.login(username='admin', password='admin'))
         # перевірка контенту
         response = self.client.get('/edit_contacts_form/')
