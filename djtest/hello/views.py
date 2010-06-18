@@ -58,10 +58,14 @@ class ContactsForm(forms.ModelForm):
         model = Contacts
 
 def edit_contacts_form(request):
+    me = Contacts.objects.get(contact_email='gmt.more@gmail.com')
     if request.method == 'POST':
-        form = ContactsForm(request.POST)    
+        form = ContactsForm(request.POST, instance=me)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
     else:
-        form = ContactsForm()
+        form = ContactsForm(instance=me)
 
     return render_to_response('edit_contacts_form.html', {'form': form})
 
