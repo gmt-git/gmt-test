@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.widgets import AdminDateWidget
 from djtest.hello.models import Contacts
 from django.http import HttpResponseRedirect
 from django import forms
@@ -53,9 +54,20 @@ def edit_contacts(request):
 
 auth_req_edit_contacts = login_required(edit_contacts)
 
+class CalendarWidget(AdminDateWidget):
+    class Media:
+        AMP = settings.ADMIN_MEDIA_PREFIX
+        extend = False
+
+        js = ('/admin/jsi18n/', AMP + 'js/core.js') + AdminDateWidget.Media.js
+
+        css = {'all': (AMP + 'css/forms.css', AMP + 'css/base.css', \
+            AMP + 'css/global.css', AMP + 'css/widgets.css')}
+
 class ContactsForm(forms.ModelForm):
     class Meta:
         model = Contacts
+        birth_date = forms.DateField(widget=CalendarWidget())
 
 @login_required
 def edit_contacts_form(request):
