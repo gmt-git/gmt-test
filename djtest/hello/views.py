@@ -65,9 +65,10 @@ class CalendarWidget(AdminDateWidget):
             AMP + 'css/global.css', AMP + 'css/widgets.css')}
 
 class ContactsForm(forms.ModelForm):
+    birth_date = forms.DateField(widget=CalendarWidget())
+
     class Meta:
         model = Contacts
-        birth_date = forms.DateField(widget=CalendarWidget())
 
 @login_required
 def edit_contacts_form(request):
