@@ -62,7 +62,7 @@ class CalendarWidget(AdminDateWidget):
         js = ('/admin/jsi18n/', AMP + 'js/core.js') + AdminDateWidget.Media.js
 
         css = {'all': (AMP + 'css/forms.css', AMP + 'css/base.css', \
-            AMP + 'css/global.css', AMP + 'css/widgets.css')}
+            AMP + 'css/widgets.css')}
 
 class ContactsForm(forms.ModelForm):
     birth_date = forms.DateField(widget=CalendarWidget())
