@@ -5,7 +5,8 @@
         "fields": {
             "first_name": "Max",
             "last_name": "Yuzhakov",
-            "contact_email": "gmt.more@gmail.com"
+            "contact_email": "gmt.more@gmail.com",
+            "birth_date": "1908-2-29"
         }
     },
     {
