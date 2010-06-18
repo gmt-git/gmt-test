@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title%}Зміна контактних данних{% endblock %}
+
+{% block content %}
+    <h3>Контактні данні:</h3>
+    <form action="/edit_contacts/" method="post">
+        {{ form.as_p }}
+        <input type="submit" value="Змінити">
+    </form>
+{% endblock %}
+

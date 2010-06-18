@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from djtest.hello.models import Contacts
 from django.http import HttpResponseRedirect
+from django import forms
 
 def home_page(request):
     obj = Contacts.objects.get(contact_email='gmt.more@gmail.com')
@@ -51,3 +52,17 @@ def edit_contacts(request):
         })
 
 auth_req_edit_contacts = login_required(edit_contacts)
+
+class ContactsForm(forms.ModelForm):
+    class Meta:
+        model = Contacts
+
+def edit_contacts_form(request):
+    if request.method == 'POST':
+        form = ContactsForm(request.POST)    
+    else:
+        form = ContactsForm()
+
+    return render_to_response('edit_contacts_form.html', {'form': form})
+
+auth_req_edit_contacts_form = login_required(edit_contacts_form)
