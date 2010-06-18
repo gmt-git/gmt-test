@@ -57,6 +57,7 @@ class ContactsForm(forms.ModelForm):
     class Meta:
         model = Contacts
 
+@login_required
 def edit_contacts_form(request):
     me = Contacts.objects.get(contact_email='gmt.more@gmail.com')
     if request.method == 'POST':
@@ -68,5 +69,3 @@ def edit_contacts_form(request):
         form = ContactsForm(instance=me)
 
     return render_to_response('edit_contacts_form.html', {'form': form})
-
-auth_req_edit_contacts_form = login_required(edit_contacts_form)
