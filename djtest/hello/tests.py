@@ -119,7 +119,8 @@ class EditContactsFormTest(TestCase):
         post_data = {
             'first_name': f_name_sha1,
             'last_name': 'Yuzhakov',
-            'contact_email': my_email
+            'contact_email': my_email,
+            'birth_date': '1908-02-29' 
         }
 
         # перевірка необхідності авторізації та логін
