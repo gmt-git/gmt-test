@@ -142,12 +142,3 @@ class EditContactsFormTest(TestCase):
         self.assertTrue(self.client.login(username='admin', password='admin'))
         response = self.client.get('/edit_contacts_form/')
         self.assertContains(response, 'class="vDateField"')
-
-        for jslink in CalendarWidget.Media.js:
-            response = self.client.get(jslink)
-            self.failUnlessEqual(response.status_code, 200)
-
-        for csslinks_for_media in CalendarWidget.Media.css.values():
-            for csslink in csslinks_for_media:
-                response = self.client.get(csslink)
-                self.failUnlessEqual(response.status_code, 200)
