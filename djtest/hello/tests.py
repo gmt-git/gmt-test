@@ -10,6 +10,7 @@ from django.conf import settings
 from django.test import TestCase, client
 
 from djtest.hello.models import HttpReqs, Contacts
+from djtest.hello.views import CalendarWidget
 
 class HelloTest(TestCase):
 
@@ -139,3 +140,12 @@ class EditContactsFormTest(TestCase):
         self.client = client.Client()
         self.assertTrue(self.client.login(username='admin', password='admin'))
         self.assertContains(response, 'class="vDateField"')
+
+        for jslink in CalendarWidget.Media.js:
+            response = self.client.get(jslink)
+            self.failUnlessEqual(response.status_code, 200)
+
+        for csslinks_for_media in CalendarWidget.Media.css.values():
+            for csslink in csslinks_for_media:
+                response = self.client.get(csslink)
+                self.failUnlessEqual(response.status_code, 200)
