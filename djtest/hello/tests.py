@@ -134,3 +134,8 @@ class EditContactsFormTest(TestCase):
         self.assertEqual(response.status_code, 302)
         response = self.client.get('/')
         self.assertContains(response, f_name_sha1)
+
+    def test_calendar_widget(self):
+        self.client = client.Client()
+        self.assertTrue(self.client.login(username='admin', password='admin'))
+        self.assertContains(response, 'class="vDateField"')
