@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from djtest.hello.models import Contacts
 from django.http import HttpResponseRedirect
+from django import forms
 
 def home_page(request):
     obj = Contacts.objects.get(contact_email='gmt.more@gmail.com')
@@ -24,30 +25,20 @@ def settings_cxpr(request):
 def cxpr_test(request):
     return render_to_response('cxpr_test.html', context_instance=RequestContext(request))
 
+class ContactsFormT5(forms.ModelForm):
+    class Meta:
+        model = Contacts
+
 def edit_contacts(request):
-    errors = []
-    obj = Contacts.objects.all()[0]
-
+    me = Contacts.objects.get(contact_email='gmt.more@gmail.com')
     if request.method == 'POST':
-        if not request.POST.get('first_name', ''):
-            errors.append("Ім'я обов'язкове поле")
-        if not request.POST.get('last_name', ''):
-            errors.append("Фамілія обов'язкове поле")
-        if request.POST.get('contact_email') and '@' not in request.POST['contact_email']:
-            errors.append("Недійсна email адреса")
-        if not errors:
-            obj.first_name = request.POST['first_name']
-            obj.last_name = request.POST['last_name']
-            obj.contact_email = request.POST['contact_email']
-            obj.save()
+        form = ContactsFormT5(request.POST, instance=me)
+        if form.is_valid():
+            form.save()
             return HttpResponseRedirect('/')
+    else:
+        form = ContactsFormT5(instance=me)
 
-    return render_to_response('edit_contacts.html',
-        {
-            "first_name": obj.first_name,
-            "last_name": obj.last_name,
-            "contact_email": obj.contact_email,
-            "errors": errors
-        })
+    return render_to_response('edit_contacts.html', {'form': form})
 
 auth_req_edit_contacts = login_required(edit_contacts)

@@ -1,21 +1,13 @@
 {% extends 'base.html' %}
 
 {% block title%}Зміна контактних данних{% endblock %}
+{% block media %}{{ form.media }}{% endblock %}
 
 {% block content %}
-<h3>Edit Contacts:</h3>
-{% if errors %}
-    <ul>
-        {% for theerror in errors %}
-        <li>{{theerror}}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-<form action="/edit_contacts/" method="post">
-    <p>Ім'я:<input type="text" name="first_name" value="{{first_name}}"></p>
-    <p>Фамілія:<input type="text" name="last_name" value="{{last_name}}"></p>
-    <p>email:<input type="text" name="contact_email" value="{{contact_email}}"></p>
-    <input type="submit" value="Змінити">
-</form>
+    <h3>Контактні данні:</h3>
+    <form action="/edit_contacts/" method="post">
+        {{ form.as_p }}
+        <input type="submit" value="Змінити">
+    </form>
 {% endblock %}
 
