@@ -2,8 +2,8 @@ from django.conf.urls.defaults import *
 from django.contrib.auth.views import login, logout
 
 # Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+admin.autodiscover()
 
 urlpatterns = patterns('',
     # Example:
@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     (r'^cxpr_test/$', 'djtest.hello.views.cxpr_test'),
     (r'^edit_contacts/$', 'djtest.hello.views.edit_contacts'),
     (r'^auth_req/edit_contacts/$', 'djtest.hello.views.auth_req_edit_contacts'),
+    (r'^edit_contacts_form/$', 'djtest.hello.views.edit_contacts_form'),
     (r'^accounts/login/$', login),
     (r'^accounts/logout/$', logout, {'next_page': '/'}),
 
@@ -20,5 +21,5 @@ urlpatterns = patterns('',
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    # (r'^admin/', include(admin.site.urls)),
+    (r'^admin/', include(admin.site.urls)),
 )

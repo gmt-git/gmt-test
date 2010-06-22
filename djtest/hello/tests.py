@@ -10,6 +10,7 @@ from django.conf import settings
 from django.test import TestCase, client
 
 from djtest.hello.models import HttpReqs, Contacts
+from djtest.hello.views import CalendarWidget
 
 class HelloTest(TestCase):
 
@@ -106,3 +107,38 @@ class AuthReqTest(TestCase):
         self.assertTrue(self.client.login(username='admin', password='admin'))
         response = self.client.get('/auth_req/edit_contacts/')
         self.failUnlessEqual(response.status_code, 200)
+
+class EditContactsFormTest(TestCase):
+
+    def test_edit_contacts_form(self):
+        self.client = client.Client()
+
+        f_name_sha1 = hashlib.sha1('Max').hexdigest()
+        my_email = 'gmt.more@gmail.com'
+
+        post_data = {
+            'first_name': f_name_sha1,
+            'last_name': 'Yuzhakov',
+            'contact_email': my_email,
+            'birth_date': '1908-02-29' 
+        }
+
+        # перевірка необхідності авторізації та логін
+        response = self.client.get('/edit_contacts_form/')
+        self.assertRedirects(response, '/accounts/login/?next=/edit_contacts_form/')
+        self.assertTrue(self.client.login(username='admin', password='admin'))
+        # перевірка контенту
+        response = self.client.get('/edit_contacts_form/')
+        self.failUnlessEqual(response.status_code, 200)
+        self.assertContains(response, my_email)
+        # перевірка можливості збрерігання змін
+        response = self.client.post('/edit_contacts_form/', post_data)
+        self.assertEqual(response.status_code, 302)
+        response = self.client.get('/')
+        self.assertContains(response, f_name_sha1)
+
+    def test_calendar_widget(self):
+        self.client = client.Client()
+        self.assertTrue(self.client.login(username='admin', password='admin'))
+        response = self.client.get('/edit_contacts_form/')
+        self.assertContains(response, 'class="vDateField"')
