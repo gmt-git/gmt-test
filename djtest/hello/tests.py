@@ -148,5 +148,4 @@ class EditContactsFormTest(TestCase):
 class EditListTagTest(TestCase):
 
     def test_edit_list_with_test_parameter(self):
-        pass
         t = Template('{% load edit_list_lib %}{% edit_list me test %}') 
