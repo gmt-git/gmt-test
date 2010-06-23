@@ -8,7 +8,7 @@ from string import find
 
 from django.conf import settings
 from django.test import TestCase, client
-from django.template import Template
+from django.template import Template, Context
 
 from djtest.hello.models import HttpReqs, Contacts
 from djtest.hello.views import CalendarWidget
@@ -148,4 +148,7 @@ class EditContactsFormTest(TestCase):
 class EditListTagTest(TestCase):
 
     def test_edit_list_with_test_parameter(self):
+        me = Contacts.objects.get(contact_email='gmt.more@gmail.com')
         t = Template('{% load edit_list_lib %}{% edit_list me test %}') 
+        c = Context({'me': me})
+        result = t.render(c)
