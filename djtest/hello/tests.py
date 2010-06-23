@@ -8,6 +8,7 @@ from string import find
 
 from django.conf import settings
 from django.test import TestCase, client
+from django.template import Template
 
 from djtest.hello.models import HttpReqs, Contacts
 from djtest.hello.views import CalendarWidget
@@ -88,6 +89,7 @@ class EditFormTest(TestCase):
             'first_name': f_name_sha1,
             'last_name': f_name_sha1,
             'contact_email': email,
+            'birth_date': '1908-02-29' 
         }
 
         response = self.client.post('/edit_contacts/', post_data)
@@ -142,3 +144,9 @@ class EditContactsFormTest(TestCase):
         self.assertTrue(self.client.login(username='admin', password='admin'))
         response = self.client.get('/edit_contacts_form/')
         self.assertContains(response, 'class="vDateField"')
+
+class EditListTagTest(TestCase):
+
+    def test_edit_list_with_test_parameter(self):
+        pass
+        t = Template('{% edit_list me test %}') 
