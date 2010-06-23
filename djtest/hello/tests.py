@@ -6,7 +6,9 @@ import json
 import hashlib
 from string import find
 
+from django.core import urlresolvers
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase, client
 from django.template import Template, Context
 
@@ -149,6 +151,9 @@ class EditListTagTest(TestCase):
 
     def test_edit_list_with_test_parameter(self):
         me = Contacts.objects.get(contact_email='gmt.more@gmail.com')
+        ct = ContentType.objects.get_for_model(me)
+        change_url = urlresolvers.reverse('admin:%s_%s_change' % (ct.app_label, ct.model), args=(me.id,))
+
         t = Template('{% load edit_list_lib %}{% edit_list me test %}') 
         c = Context({'me': me})
         result = t.render(c)
