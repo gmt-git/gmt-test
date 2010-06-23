@@ -59,6 +59,7 @@ class ContactsForm(forms.ModelForm):
 
     class Meta:
         model = Contacts
+        fields = ('birth_date', 'contact_email', 'last_name', 'first_name')
 
 @login_required
 def edit_contacts_form(request):
