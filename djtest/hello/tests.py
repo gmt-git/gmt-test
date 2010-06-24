@@ -165,4 +165,4 @@ class EditListTagTest(TestCase):
         t = Template('{% load edit_list_lib %}{% edit_list me test %}') 
         c = Context({'me': me})
         result = t.render(c)
-        self.assertEqual(result, ','.join(ch_msgs))
+        self.assertEqual(result, ','.join(ch_msgs[-1::-1]))
