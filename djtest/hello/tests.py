@@ -155,13 +155,14 @@ class EditListTagTest(TestCase):
         me = Contacts.objects.get(contact_email='gmt.more@gmail.com')
         ct = ContentType.objects.get_for_model(me)
         admin = User.objects.get(username='admin')
+        ch_msgs = (u'Змінено1', u'Змінено2', u'Змінено3')
 
         self.assertEqual(LogEntry.objects.all().count(), 0)
-        LogEntry.objects.log_action(admin.pk, ct.pk, me.pk, force_unicode(me), CHANGE, u'Змінено')
-        LogEntry.objects.log_action(admin.pk, ct.pk, me.pk, force_unicode(me), CHANGE, u'Змінено')
-        LogEntry.objects.log_action(admin.pk, ct.pk, me.pk, force_unicode(me), CHANGE, u'Змінено')
-        self.assertEqual(LogEntry.objects.all().count(), 3)
+        for ch_msg in ch_msgs:
+            LogEntry.objects.log_action(admin.pk, ct.pk, me.pk, force_unicode(me), CHANGE, ch_msg)
+        self.assertEqual(LogEntry.objects.all().count(), len(ch_msgs))
 
         t = Template('{% load edit_list_lib %}{% edit_list me test %}') 
         c = Context({'me': me})
         result = t.render(c)
+        self.assertEqual(result, ','.join(ch_msgs))
