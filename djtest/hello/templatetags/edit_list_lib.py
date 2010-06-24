@@ -3,7 +3,22 @@ from django import template
 register = template.Library()
 
 class EditListNode(template.Node):
-    pass
+
+    def __init__(self, obj, test):
+        self.obj = template.Variable(obj)
+        self.test = test
+        self.result = ''
+
+    def render(self, context):
+        try:
+            obj_inst = self.obj.resolve(context)
+        except template.VariableDoesNotExist:
+            return ''
+
+        if self.test:
+            self.result="123"
+
+        return self.result
 
 @register.tag(name='edit_list')
 def do_edit_list(parser, token):
