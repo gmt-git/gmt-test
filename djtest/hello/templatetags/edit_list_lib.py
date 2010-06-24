@@ -1,4 +1,6 @@
 from django import template
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.admin.models import LogEntry
 
 register = template.Library()
 
@@ -15,8 +17,14 @@ class EditListNode(template.Node):
         except template.VariableDoesNotExist:
             return ''
 
+        obj_id = obj_inst.pk
+        ct_id = ContentType.objects.get_for_model(obj_inst).pk
+
         if self.test:
-            self.result="123"
+            self.result = ','.join( \
+                LogEntry.objects.filter(content_type=ct_id, object_id=obj_id). \
+                values_list('change_message', flat=True)
+            )
 
         return self.result
 
