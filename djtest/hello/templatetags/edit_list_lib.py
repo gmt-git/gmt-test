@@ -17,8 +17,12 @@ class EditListNode(template.Node):
         except template.VariableDoesNotExist:
             return ''
 
-        obj_id = obj_inst.pk
-        ct_id = ContentType.objects.get_for_model(obj_inst).pk
+        try:
+            obj_id = obj_inst.pk
+            ct_id = ContentType.objects.get_for_model(obj_inst).pk
+        except AttributeError:
+            obj_id = None
+            ct_id = None
 
         if self.test:
             self.result = ','.join( \
