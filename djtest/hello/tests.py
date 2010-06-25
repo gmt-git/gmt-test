@@ -195,3 +195,7 @@ class EditListTagTest(TestCase):
         # Перевіряємо повноцінний рендерінг
         restr = ".*table.*%s.*%s.*%s.*" % ch_msgs[-1::-1]
         self.assertTrue(re.match(restr, t2.render(c1)))
+
+        # Перевіряємо присутність на головній сторінці таблиці зі змінами
+        self.client = client.Client()
+        self.assertTrue(re.match(restr, self.client.get('/').content))
