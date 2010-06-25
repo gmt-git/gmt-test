@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*- 
 
 import os
+import re
 import json
 import hashlib
 from string import find
@@ -190,3 +191,7 @@ class EditListTagTest(TestCase):
         self.assertEqual(LogEntry.objects.all().count(), len(ch_msgs))
 
         self.assertEqual(t1.render(c1), ','.join(ch_msgs[-1::-1]))
+
+        # Перевіряємо повноцінний рендерінг
+        restr = ".*table.*%s.*%s.*%s.*" % ch_msgs[-1::-1]
+        self.assertTrue(re.match(restr, t2.render(c1)))
