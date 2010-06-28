@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*- 
 
 from django.db import models
+from django.contrib.contenttypes.models import ContentType
 
 class Contacts(models.Model):
 
@@ -19,4 +20,10 @@ class HttpReqs(models.Model):
     meta = models.TextField()
     cookies = models.TextField()
 
+class ModelsLog(models.Model):
 
+    action_time = models.DateTimeField()
+    content_type = models.ForeignKey(ContentType)
+    content_type = models.PositiveIntegerField()
+    object_repr = models.CharField(max_length=300)
+    action_flag = models.CharField(max_length=5)

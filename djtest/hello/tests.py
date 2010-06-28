@@ -210,7 +210,7 @@ class ModelSignalsTest(TestCase):
         notme = Contacts(first_name='Maxim', last_name='Yuzhakov',
             contact_email='max@example.com', birth_date='1908-02-28')
 
-        mlog_cnt = ModelsLog.objects.filter(content_type=myct.content_type).count()
+        mlog_cnt = ModelsLog.objects.filter(content_type=myct.id).count()
         self.assertEqual(mlog_cnt, 0)
 
 
