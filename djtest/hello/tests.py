@@ -10,7 +10,7 @@ from django.conf import settings
 from django.test import TestCase, client
 
 from djtest.hello.models import HttpReqs, Contacts
-from djtest.hello.views import CalendarWidget
+from djtest.hello.forms import CalendarWidget
 
 class HelloTest(TestCase):
 
@@ -88,6 +88,7 @@ class EditFormTest(TestCase):
             'first_name': f_name_sha1,
             'last_name': f_name_sha1,
             'contact_email': email,
+            'birth_date': '1908-02-29',
         }
 
         response = self.client.post('/edit_contacts/', post_data)
