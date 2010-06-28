@@ -210,13 +210,15 @@ class ModelSignalsTest(TestCase):
         notme = Contacts(first_name='Maxim', last_name='Yuzhakov',
             contact_email='max@example.com', birth_date='1908-02-28')
 
+        # Перевіряємо що записів стало на один більше
         logcnt = ModelsLog.objects.filter(content_type=myct.id).count()
-        self.assertEqual(Contacts.objects.all().count(), 1)
-
         notme.save()
-
-        self.assertEqual(Contacts.objects.all().count(), 2)
         self.assertEqual(ModelsLog.objects.filter(content_type=myct.id).count(), logcnt+1)
+
+        # Перевіряємо що запис має action_flag 'ADD'
+        lastlog = ModelsLog.objects.filter(content_type=myct.id, object_id=notme.pk). \
+            order_by('action_time')[0]
+        self.assertEqual(lastlog.action_flag, u'ADD')
 
 
 
