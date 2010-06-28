@@ -201,4 +201,11 @@ class EditListTagTest(TestCase):
         self.client = client.Client()
         self.assertTrue(re.search(restr, force_unicode(self.client.get(u'/').content), re.DOTALL))
 
+class ModelSignalsTest(TestCase):
+
+    def test_models_signal_handler(self):
+        self.assertFalse(True)
+
+
+
 __test__ = {"commands": printmodels.handle_test}
