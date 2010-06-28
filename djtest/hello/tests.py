@@ -194,8 +194,8 @@ class EditListTagTest(TestCase):
 
         # Перевіряємо повноцінний рендерінг
         restr = 'table.*%s.*%s.*%s' % ch_msgs[-1::-1]
-        self.assertTrue(re.search(restr, t2.render(c1)))
+        self.assertTrue(re.search(restr, t2.render(c1), re.DOTALL))
 
         # Перевіряємо присутність на головній сторінці таблиці зі змінами
         self.client = client.Client()
-        self.assertTrue(re.search(restr, force_unicode(self.client.get(u'/').content)))
+        self.assertTrue(re.search(restr, force_unicode(self.client.get(u'/').content), re.DOTALL))
