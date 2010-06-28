@@ -16,7 +16,7 @@ from django.test import TestCase, client
 from django.template import Template, Context
 from django.utils.encoding import force_unicode
 
-from djtest.hello.models import HttpReqs, Contacts
+from djtest.hello.models import HttpReqs, Contacts, ModelsLog
 from djtest.hello.forms import CalendarWidget
 from djtest.hello.management.commands import printmodels
 
@@ -204,7 +204,14 @@ class EditListTagTest(TestCase):
 class ModelSignalsTest(TestCase):
 
     def test_models_signal_handler(self):
-        self.assertFalse(True)
+        me = Contacts.objects.get(contact_email='gmt.more@gmail.com')
+        myct = ContentType.objects.get_for_model(me)
+
+        notme = Contacts(first_name='Maxim', last_name='Yuzhakov',
+            contact_email='max@example.com', birth_date='1908-02-28')
+
+        mlog_cnt = ModelsLog.objects.filter(content_type=myct.content_type).count()
+        self.assertEqual(mlog_cnt, 0)
 
 
 
