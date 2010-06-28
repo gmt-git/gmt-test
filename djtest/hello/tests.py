@@ -229,10 +229,11 @@ class ModelSignalsTest(TestCase):
         self.assertEqual(lastlog.action_flag, u'MOD')
 
         # Тест на видалення
+        me2pk = me2.pk
         me2.delete()
         self.assertEqual(ModelsLog.objects.filter(content_type=myct.id).count(), logcnt+3)
 
-        lastlog = ModelsLog.objects.filter(content_type=myct.id, object_id=me2.pk). \
+        lastlog = ModelsLog.objects.filter(content_type=myct.id, object_id=me2pk). \
             order_by('-action_time')[0]
         self.assertEqual(lastlog.action_flag, u'DEL')
 

@@ -27,6 +27,11 @@ def modelslog_delete_handler(sender, **kwargs):
     if sender_ct == excl_ct:
         return
 
+    obj = kwargs['instance']
+    mlog = ModelsLog(content_type=sender_ct, object_id=obj.pk)
+    mlog.action_flag = 'DEL'
+    mlog.save()
+
 post_save.connect(modelslog_save_handler)
 post_delete.connect(modelslog_delete_handler)
 
