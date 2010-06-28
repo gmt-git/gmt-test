@@ -16,7 +16,7 @@ from django.test import TestCase, client
 from django.template import Template, Context
 from django.utils.encoding import force_unicode
 
-from djtest.hello.models import HttpReqs, Contacts
+from djtest.hello.models import HttpReqs, Contacts, ModelsLog
 from djtest.hello.forms import CalendarWidget
 from djtest.hello.management.commands import printmodels
 
@@ -200,5 +200,41 @@ class EditListTagTest(TestCase):
         # Перевіряємо присутність на головній сторінці таблиці зі змінами
         self.client = client.Client()
         self.assertTrue(re.search(restr, force_unicode(self.client.get(u'/').content), re.DOTALL))
+
+class ModelSignalsTest(TestCase):
+
+    def test_models_signal_handler(self):
+        me2 = Contacts(first_name='Maxim', last_name='Yuzhakov',
+            contact_email='max@example.com', birth_date='1908-02-29')
+        myct = ContentType.objects.get_for_model(me2)
+
+        # Тест на додавання
+        logcnt = ModelsLog.objects.filter(content_type=myct.id).count()
+        me2.save()
+        # Перевіряємо що записів стало на один більше
+        self.assertEqual(ModelsLog.objects.filter(content_type=myct.id).count(), logcnt+1)
+
+        # Перевіряємо що останній запис має action_flag 'ADD'
+        lastlog = ModelsLog.objects.filter(content_type=myct.id, object_id=me2.pk). \
+            order_by('-action_time')[0]
+        self.assertEqual(lastlog.action_flag, u'ADD')
+
+        # Тест на зміни
+        me2.first_name = 'Max'
+        me2.save()
+        self.assertEqual(ModelsLog.objects.filter(content_type=myct.id).count(), logcnt+2)
+
+        lastlog = ModelsLog.objects.filter(content_type=myct.id, object_id=me2.pk). \
+            order_by('-action_time')[0]
+        self.assertEqual(lastlog.action_flag, u'MOD')
+
+        # Тест на видалення
+        me2pk = me2.pk
+        me2.delete()
+        self.assertEqual(ModelsLog.objects.filter(content_type=myct.id).count(), logcnt+3)
+
+        lastlog = ModelsLog.objects.filter(content_type=myct.id, object_id=me2pk). \
+            order_by('-action_time')[0]
+        self.assertEqual(lastlog.action_flag, u'DEL')
 
 __test__ = {"commands": printmodels.handle_test}
