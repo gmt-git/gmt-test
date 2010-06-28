@@ -16,7 +16,7 @@ def get_models_and_count():
     result = 'Project models:\n\n'
     for ct in ContentType.objects.order_by('id'):
         result += ct.app_label + '.' + ct.model + ' count=' + str(ct.model_class().objects.count()) + '\n'
-    result += '\nTotal models count: %d' % ContentType.objects.all().count()
+    result += '\nTotal models count: %d' % ContentType.objects.all().count() + '\n'
     return result
 
 def handle_test():
