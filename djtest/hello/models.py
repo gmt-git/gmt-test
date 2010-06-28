@@ -11,6 +11,16 @@ def modelslog_save_handler(sender, **kwargs):
     if sender_ct == excl_ct:
         return
 
+    obj = kwargs['instance']
+    mlog = ModelsLog(content_type=sender_ct, object_id=obj.pk)
+
+    if kwargs['created']:
+        mlog.action_flag = 'ADD'
+    else:
+        mlog.action_flag = 'MOD'
+
+    mlog.save()
+
 def modelslog_delete_handler(sender, **kwargs):
     excl_ct = ContentType.objects.get_for_model(ModelsLog)
     sender_ct = ContentType.objects.get_for_model(sender)
@@ -39,8 +49,8 @@ class HttpReqs(models.Model):
 
 class ModelsLog(models.Model):
 
-    action_time = models.DateTimeField()
+    action_time = models.DateTimeField(auto_now=True)
     content_type = models.ForeignKey(ContentType)
-    content_type = models.PositiveIntegerField()
+    object_id = models.CharField(max_length=300)
     object_repr = models.CharField(max_length=300)
     action_flag = models.CharField(max_length=5)
