@@ -4,7 +4,7 @@
 import re
 from django.conf import settings
 from tddspry.django import HttpTestCase
-from djtest.hello.views import CalendarWidget
+from djtest.hello.forms import CalendarWidget
 from twill import get_browser
 
 class TestCalendar(HttpTestCase):
