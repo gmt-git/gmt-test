@@ -199,3 +199,5 @@ class EditListTagTest(TestCase):
         # Перевіряємо присутність на головній сторінці таблиці зі змінами
         self.client = client.Client()
         self.assertTrue(re.search(restr, force_unicode(self.client.get(u'/').content), re.DOTALL))
+
+__test__ = {"commands": printmodels.Command.handle} 
