@@ -18,6 +18,7 @@ from django.utils.encoding import force_unicode
 
 from djtest.hello.models import HttpReqs, Contacts
 from djtest.hello.forms import CalendarWidget
+from djtest.hello.management.commands import printmodels
 
 class HelloTest(TestCase):
 
@@ -199,3 +200,5 @@ class EditListTagTest(TestCase):
         # Перевіряємо присутність на головній сторінці таблиці зі змінами
         self.client = client.Client()
         self.assertTrue(re.search(restr, force_unicode(self.client.get(u'/').content), re.DOTALL))
+
+__test__ = {"commands": printmodels.handle_test}
