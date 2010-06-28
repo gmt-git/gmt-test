@@ -4,6 +4,7 @@
 from django import template
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin.models import LogEntry
+from django.template.loader import render_to_string
 
 register = template.Library()
 
@@ -24,25 +25,28 @@ class EditListNode(template.Node):
             obj_id = obj_inst.pk
             ct_id = ContentType.objects.get_for_model(obj_inst).pk
         except AttributeError:
-            obj_id = None
-            ct_id = None
+            return ''
 
         qs = LogEntry.objects.filter(content_type=ct_id, object_id=obj_id)
+
+        if qs.count() == 0:
+            return ''
+
         if self.test:
             self.result = ','.join(qs.values_list('change_message', flat=True))
         else:
-            if qs.count() > 0:
-                self.result += u'<table><caption>Зміни %s</caption><tr>' % qs[0].object_repr
-                self.result += u'<th>%s</th><th>%s</th><th>%s</th><th>%s</th>' % \
-                    ('action_time', 'user', 'content_type', 'object_repr')
-                self.result += u'<th>%s</th><th>%s</th></tr>' % ('action_flag', 'change_message')
+            fields = ['action_time', 'user', 'content_type',
+                'object_repr', 'action_flag', 'change_message']
 
-                for r in qs:
-                    self.result += u'<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td>' % \
-                        (r.action_time, r.user, r.content_type, r.object_repr)
-                    self.result += u'<td>%s</td><td>%s</td></tr>' % (r.action_flag, r.change_message)
+            # Список списків де рядки це рядки QuerySet, а стовпці задані fields
+            data = [[getattr(le_inst, f, '') for f in fields] for le_inst in qs]
 
-                self.result += u'</table>'
+            self.result = render_to_string('edit_list_lib.html',
+                {
+                    'caption': u'Зміни %s' % qs[0].object_repr,
+                    'fields': fields,
+                    'data': data
+                })
 
         return self.result
 
