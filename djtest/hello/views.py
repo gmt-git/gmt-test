@@ -18,6 +18,7 @@ def home_page(request):
             "first_name" : obj.first_name,
             "last_name" : obj.last_name,
             "contact_email" : obj.contact_email,
+            "me" : obj
         })
 
 def settings_cxpr(request):
