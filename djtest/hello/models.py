@@ -6,10 +6,16 @@ from django.db.models.signals import post_save, post_delete
 from django.contrib.contenttypes.models import ContentType
 
 def modelslog_save_handler(sender, **kwargs):
-    pass
+    excl_ct = ContentType.objects.get_for_model(ModelsLog)
+    sender_ct = ContentType.objects.get_for_model(sender)
+    if sender_ct == excl_ct:
+        return
 
 def modelslog_delete_handler(sender, **kwargs):
-    pass
+    excl_ct = ContentType.objects.get_for_model(ModelsLog)
+    sender_ct = ContentType.objects.get_for_model(sender)
+    if sender_ct == excl_ct:
+        return
 
 post_save.connect(modelslog_save_handler)
 post_delete.connect(modelslog_delete_handler)
