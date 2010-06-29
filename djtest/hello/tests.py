@@ -229,3 +229,7 @@ class EditListTagTest(TestCase):
 
         # Рендерінг повинен давати лінк
         self.assertEqual(t1.render(c1), change_url)
+
+        # Перевіряємо присутність на головній сторінці лінку на редагування контактів в адмінці
+        href = u'href="%s"' % change_url
+        self.assertContains(client.Client().get(u'/'), href)
