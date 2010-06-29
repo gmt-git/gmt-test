@@ -256,13 +256,22 @@ class JQueryFormTest(TestCase):
         post_data = {
             'first_name': 'Max',
             'last_name': 'Yuzhakov',
-            'contact_email': 'max@example.com',
+            'contact_email': 'gmt.more@gmail.com',
             'birth_date': '1908-02-29'
         }
 
         # Відповідь повинна віддавати код 200 та містити vDateField наприклад
         # У всякому разі відповідь повинна отримувати новий вміст форми
         # З помилками валідації, чи ні
+        response = self.client.post('/edit_contacts_form/', post_data,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'class="vDateField"')
+        self.assertNotContains(response, '<head>')
+
+        post_data['birth_date'] = ''
+
+        # У разі невалідних данних відповідь також не повинна містити <head>
         response = self.client.post('/edit_contacts_form/', post_data,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
