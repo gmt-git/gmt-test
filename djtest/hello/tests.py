@@ -237,4 +237,17 @@ class ModelSignalsTest(TestCase):
             order_by('-action_time')[0]
         self.assertEqual(lastlog.action_flag, u'DEL')
 
+
+class JQueryFormTest(TestCase):
+
+    def test_xhr_request(self):
+        tcl = client.Client()
+        # На початку перевіряємо доступність бібліотек
+        response = tcl.post('/static_media/js/jquery.js')
+        self.failUnlessEqual(response.status_code, 200)
+        response = tcl.post('/static_media/js/jquery.form.js')
+        self.failUnlessEqual(response.status_code, 200)
+
+
+
 __test__ = {"commands": printmodels.handle_test}
