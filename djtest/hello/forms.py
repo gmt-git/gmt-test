@@ -23,6 +23,10 @@ class ContactsFormT5(forms.ModelForm):
 
 class ContactsForm(forms.ModelForm):
     birth_date = forms.DateField(widget=CalendarWidget())
+    class Media:
+        js = ('/static_media/js/jquery.js',
+            '/static_media/js/jquery.form.js',
+            '/static_media/hello/js/contacts_form.js')
 
     class Meta:
         model = Contacts
