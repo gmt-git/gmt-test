@@ -204,5 +204,28 @@ class EditListTagTest(TestCase):
     def test_edit_link(self):
         me = Contacts.objects.get(contact_email='gmt.more@gmail.com')
         ct = ContentType.objects.get_for_model(me)
+        # Знаходимо change_url для тестового об'єкту
         change_url = urlresolvers.reverse('admin:%s_%s_change' % (ct.app_label, ct.model), args=(me.id,))
-        self.assertFalse(True)
+
+        # Тестова модель, яку тег не повинен рендерить
+        class TestModel(models.Model):
+            testfield = models.CharField()
+
+        tm_inst = TestModel(testfield="hello")
+
+        # Створюємо шаблон для перевірки нового тегу (edit_link),
+        # Та контексти для тестовго об'екту, та трьох об'єктів що не повинні рендериться
+        t1 = Template('{% load edit_list_lib %}{% edit_link me %}')
+
+        c1 = Context({'me': me})
+        c2 = Context({'me': tm_inst})
+        c3 = Context({'me': None})
+        c4 = Context({'me': 1.5})
+
+        # Рендерінг випадкових обєктів повинен бути відсутнім
+        self.assertEqual(t1.render(c2), '')
+        self.assertEqual(t1.render(c3), '')
+        self.assertEqual(t1.render(c4), '')
+
+        # Рендерінг повинен давати лінк
+        self.assertEqual(t1.render(c1), change_url)
