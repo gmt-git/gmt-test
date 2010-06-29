@@ -81,6 +81,9 @@ class EditLinkNode(template.Node):
         except AttributeError:
             return ''
 
+        if not obj_id:
+            return ''
+
         return urlresolvers.reverse('admin:%s_%s_change' % (ct.app_label, ct.model), args=(obj_id,))
 
 @register.tag(name='edit_link')
