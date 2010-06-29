@@ -260,10 +260,13 @@ class JQueryFormTest(TestCase):
             'birth_date': '1908-02-29'
         }
 
-        # Запит повинен віддавати код 200, тоді як без XRH віддає 302
+        # Відповідь повинна віддавати код 200 та містити vDateField наприклад
+        # У всякому разі відповідь повинна отримувати новий вміст форми
+        # З помилками валідації, чи ні
         response = self.client.post('/edit_contacts_form/', post_data,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'class="vDateField"')
 
 
 
