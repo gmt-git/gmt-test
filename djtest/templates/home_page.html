@@ -15,9 +15,10 @@
     <br /><br />
     <a href="/edit_contacts_form/">ticket:6 Edit Contacts with calendar widget</a>
     <br /><br />
+    <a href="{% load edit_list_lib %}{% edit_link me %}">ticket:8 Template tag link to edit contacts</a>
+    <br /><br />
     <a href="/accounts/logout/">Logout</a>
 </p>
 <h3>LogEntry for contacts:</h3>
-{% load edit_list_lib %}{% edit_list me %}
 {% endblock %}
 
