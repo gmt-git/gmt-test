@@ -11,6 +11,7 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.admin.models import LogEntry, CHANGE
 from django.contrib.auth.models import User
+from django.core import urlresolvers
 from django.db import models
 from django.test import TestCase, client
 from django.template import Template, Context
@@ -197,5 +198,11 @@ class EditListTagTest(TestCase):
         self.assertTrue(re.search(restr, t2.render(c1), re.DOTALL))
 
         # Перевіряємо присутність на головній сторінці таблиці зі змінами
-        self.client = client.Client()
-        self.assertTrue(re.search(restr, force_unicode(self.client.get(u'/').content), re.DOTALL))
+        # self.client = client.Client()
+        # self.assertTrue(re.search(restr, force_unicode(self.client.get(u'/').content), re.DOTALL))
+
+    def test_edit_link(self):
+        me = Contacts.objects.get(contact_email='gmt.more@gmail.com')
+        ct = ContentType.objects.get_for_model(me)
+        change_url = urlresolvers.reverse('admin:%s_%s_change' % (ct.app_label, ct.model), args=(me.id,))
+        self.assertFalse(True)
