@@ -1,6 +1,6 @@
 $(function() {
     var options = {
-        target:        '#upadate_target',
+        target:        '#update_target',
     };
 
     $('FORM').ajaxForm(options);

@@ -52,6 +52,9 @@ def edit_contacts_form(request):
                 return HttpResponse(form.as_p())
             else:
                 return HttpResponseRedirect('/')
+
+        if request.is_ajax():
+            return HttpResponse(form.as_p())
     else:
         form = ContactsForm(instance=me)
 
