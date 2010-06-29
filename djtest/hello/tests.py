@@ -248,6 +248,23 @@ class JQueryFormTest(TestCase):
         response = tcl.post('/static_media/js/jquery.form.js')
         self.failUnlessEqual(response.status_code, 200)
 
+        # Авторізація
+        response = self.client.get('/edit_contacts_form/')
+        self.assertRedirects(response, '/accounts/login/?next=/edit_contacts_form/')
+        self.assertTrue(self.client.login(username='admin', password='admin'))
+
+        post_data = {
+            'first_name': 'Max',
+            'last_name': 'Yuzhakov',
+            'contact_email': 'max@example.com',
+            'birth_date': '1908-02-29'
+        }
+
+        # Запит повинен віддавати код 200, тоді як без XRH віддає 302
+        response = self.client.post('/edit_contacts_form/', post_data,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
+
 
 
 __test__ = {"commands": printmodels.handle_test}
