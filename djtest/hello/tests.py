@@ -267,6 +267,7 @@ class JQueryFormTest(TestCase):
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'class="vDateField"')
+        self.assertNotContains(response, '<head>')
 
 
 
