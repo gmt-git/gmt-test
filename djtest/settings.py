@@ -2,6 +2,7 @@
 import os
 
 PROJ_ROOT = os.path.dirname(os.path.realpath(__file__))
+STATIC_DOC_ROOT = os.path.join(PROJ_ROOT, 'static_media')
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG

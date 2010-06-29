@@ -1,4 +1,5 @@
 from django.conf.urls.defaults import *
+from django.conf import settings
 from django.contrib.auth.views import login, logout
 
 # Uncomment the next two lines to enable the admin:
@@ -15,6 +16,8 @@ urlpatterns = patterns('',
     (r'^edit_contacts_form/$', 'djtest.hello.views.edit_contacts_form'),
     (r'^accounts/login/$', login),
     (r'^accounts/logout/$', logout, {'next_page': '/'}),
+    (r'^static_media/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': settings.STATIC_DOC_ROOT}),
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
     # to INSTALLED_APPS to enable admin documentation:
