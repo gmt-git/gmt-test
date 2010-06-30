@@ -11,22 +11,22 @@ class EditLinkNode(template.Node):
 
     def __init__(self, obj):
         self.obj = template.Variable(obj)
-        self.result = ''
+        self.result = '/debug/tags/%s/%d/'
 
     def render(self, context):
         try:
             obj_inst = self.obj.resolve(context)
         except template.VariableDoesNotExist:
-            return ''
+            return self.result % ('edit_link', 1)
 
         try:
             obj_id = obj_inst.pk
             ct = ContentType.objects.get_for_model(obj_inst)
         except AttributeError:
-            return ''
+            return self.result % ('edit_link', 2)
 
         if not obj_id:
-            return ''
+            return self.result % ('edit_link', 3)
 
         return urlresolvers.reverse('admin:%s_%s_change' % (ct.app_label, ct.model), args=(obj_id,))
 
