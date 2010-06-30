@@ -275,5 +275,14 @@ class JQueryFormTest(TestCase):
         self.assertNotContains(response, '<head>')
 
 
+class ListViewTest(TestCase):
+
+    def test_httpreqs_list(self):
+        # Генеруємо запити
+        tcl = client.Client()
+        test_urls = ['/testurl/%d/' % i for i in range(30)]
+        resp_list = [tcl.get(test_url) for test_url in test_urls]
+
+
 
 __test__ = {"commands": printmodels.handle_test}
