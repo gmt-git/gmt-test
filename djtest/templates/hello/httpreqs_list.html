@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title%}Останні HTTP запроси{% endblock %}
+
+{% block content %}
+    <h2>Останні HTTP запроси:</h2>
+    <a href='/'>Повернутися на головну</a>
+    <ul>
+        {% for request in object_list %}
+            <li>{{ request.full_path }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
