@@ -13,16 +13,20 @@ $(function() {
 function on_before_submit(formData, jqForm, options) {
     $('.vDateField+span').remove();
     $('FORM *').attr('disabled', 'disabled');
+
+    $('#formindicator').html('Форма відправлена');
     return true;
 }
 
-function on_success(responseText, statusText, xhr, $form)  {
-    $('FORM *').removeAttr('disabled');
-    DateTimeShortcuts.init();
+function on_success() {
+    $('#formindicator').html('');
 }
 
 function on_error(xhr, statusText)  {
+    $('#formindicator').html('Помилка відправки');
 }
 
 function on_complete(xhr, statusText)  {
+    $('FORM *').removeAttr('disabled');
+    DateTimeShortcuts.init();
 }
