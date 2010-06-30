@@ -285,7 +285,7 @@ class ListViewTest(TestCase):
 
         # Тест присутності десяти останніх запитів на сторінці '/httpreqs_log/'
         response = tcl.get('/httpreqs_log/')
-        for test_url in test_urls[:-11:-1]:
+        for test_url in test_urls[:-10:-1]:
             self.assertContains(response, test_url)
 
 
