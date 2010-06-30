@@ -14,8 +14,7 @@ $(function() {
 });
 
 function on_before_submit(formData, jqForm, options) {
-    $('form .vDateField+span').remove();
-    $('div.calendarbox').remove();
+    $('.vDateField+span').hide().insertAfter('#update_target');
     $('form input').attr('disabled', 'disabled');
 
     $('#formindicator').html('Форма відправлюється');
@@ -32,5 +31,5 @@ function on_error(xhr, statusText)  {
 
 function on_complete(xhr, statusText)  {
     $('form input').removeAttr('disabled');
-    DateTimeShortcuts.init();
+    $('#update_target+span').insertAfter('.vDateField').show();
 }
