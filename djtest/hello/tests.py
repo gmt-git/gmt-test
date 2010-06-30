@@ -174,6 +174,7 @@ class EditListTagTest(TestCase):
         c2 = Context({'me': tm_inst})
         c3 = Context({'me': None})
         c4 = Context({'me': 1.5})
+        c5 = Context({'nonexistent': me})
 
         # Рендерінг випадкових обєктів повинен бути відсутнім
         # Якщо помилка у рендерінгу, повиннен сформуватися лінк '/debug/tags/edit_link/d/'
