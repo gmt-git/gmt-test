@@ -191,3 +191,6 @@ class EditListTagTest(TestCase):
         # Перевіряємо присутність на головній сторінці лінку на редагування контактів в адмінці
         href = u'href="%s"' % change_url
         self.assertContains(client.Client().get(u'/'), href)
+
+        # Перевіряємо що шаблон з помилкою працює як належить
+        self.assertContains(client.Client().get(u'/debug/tags/edit_link/3/'), 'Код помилки: 3')
