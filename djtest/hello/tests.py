@@ -233,4 +233,47 @@ class ModelSignalsTest(TestCase):
             order_by('-action_time')[0]
         self.assertEqual(lastlog.action_flag, u'DEL')
 
+
+class JQueryFormTest(TestCase):
+
+    def test_xhr_request(self):
+        tcl = client.Client()
+        # На початку перевіряємо доступність бібліотек
+        response = tcl.post('/static_media/js/jquery.js')
+        self.failUnlessEqual(response.status_code, 200)
+        response = tcl.post('/static_media/js/jquery.form.js')
+        self.failUnlessEqual(response.status_code, 200)
+
+        # Авторізація
+        response = self.client.get('/edit_contacts_form/')
+        self.assertRedirects(response, '/accounts/login/?next=/edit_contacts_form/')
+        self.assertTrue(self.client.login(username='admin', password='admin'))
+
+        post_data = {
+            'first_name': 'Max',
+            'last_name': 'Yuzhakov',
+            'contact_email': 'gmt.more@gmail.com',
+            'birth_date': '1908-02-29'
+        }
+
+        # Відповідь повинна віддавати код 200 та містити vDateField наприклад
+        # У всякому разі відповідь повинна отримувати новий вміст форми
+        # З помилками валідації, чи ні
+        response = self.client.post('/edit_contacts_form/', post_data,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'class="vDateField"')
+        self.assertNotContains(response, '<head>')
+
+        post_data['birth_date'] = ''
+
+        # У разі невалідних данних відповідь також не повинна містити <head>
+        response = self.client.post('/edit_contacts_form/', post_data,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'class="vDateField"')
+        self.assertNotContains(response, '<head>')
+
+
+
 __test__ = {"commands": printmodels.handle_test}

@@ -6,8 +6,11 @@
 {% block content %}
     <h3>Контактні данні:</h3>
     <form action="/edit_contacts_form/" method="post">
+        <div id="update_target">
         {{ form.as_p }}
+        </div>
         <input type="submit" value="Змінити" />
+        <h3 id="formindicator"></h3>
     </form>
 {% endblock %}
 

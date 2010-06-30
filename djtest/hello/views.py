@@ -1,11 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*- 
 
+import time
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 
 from djtest.hello.models import Contacts
 from djtest.hello.forms import ContactsFormT5, ContactsForm
@@ -48,7 +49,15 @@ def edit_contacts_form(request):
         form = ContactsForm(request.POST, instance=me)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/')
+            if request.is_ajax():
+                time.sleep(2)
+                return HttpResponse(form.as_p())
+            else:
+                return HttpResponseRedirect('/')
+
+        if request.is_ajax():
+            time.sleep(2)
+            return HttpResponse(form.as_p())
     else:
         form = ContactsForm(instance=me)
 
