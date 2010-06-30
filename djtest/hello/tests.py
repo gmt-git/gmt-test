@@ -176,9 +176,13 @@ class EditListTagTest(TestCase):
         c4 = Context({'me': 1.5})
 
         # Рендерінг випадкових обєктів повинен бути відсутнім
-        self.assertEqual(t1.render(c2), '')
-        self.assertEqual(t1.render(c3), '')
-        self.assertEqual(t1.render(c4), '')
+        # Якщо помилка у рендерінгу, повиннен сформуватися лінк '/debug/tags/edit_link/d/'
+        # останній компонент шляху 'd' -- код помилки
+        # при тестуванні останні два сімволи з лінку вирізаємо
+        # Бо невідомо, який тест яку помилку видасть
+        self.assertEqual(t1.render(c2)[:-2], '/debug/tags/edit_link/')
+        self.assertEqual(t1.render(c3)[:-2], '/debug/tags/edit_link/')
+        self.assertEqual(t1.render(c4)[:-2], '/debug/tags/edit_link/')
 
         # Рендерінг повинен давати лінк
         self.assertEqual(t1.render(c1), change_url)
