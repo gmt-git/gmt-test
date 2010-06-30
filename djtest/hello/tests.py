@@ -283,6 +283,11 @@ class ListViewTest(TestCase):
         test_urls = ['/testurl/%d/' % i for i in range(30)]
         resp_list = [tcl.get(test_url) for test_url in test_urls]
 
+        # Тест присутності десяти останніх запитів на сторінці '/httpreqs_log/'
+        response = tcl.get('/httpreqs_log/')
+        for test_url in test_urls[:-11:-1]:
+            self.assertContains(response, test_url)
+
 
 
 __test__ = {"commands": printmodels.handle_test}
