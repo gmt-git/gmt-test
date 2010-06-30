@@ -154,53 +154,6 @@ class EditContactsFormTest(TestCase):
 
 class EditListTagTest(TestCase):
 
-    def test_edit_list_with_test_parameter(self):
-        me = Contacts.objects.get(contact_email='gmt.more@gmail.com')
-        ct = ContentType.objects.get_for_model(me)
-        admin = User.objects.get(username='admin')
-        ch_msgs = (u'Змінено1', u'Змінено2', u'Змінено3')
-
-        class TestModel(models.Model):
-            testfield = models.CharField()
-
-        tm_inst = TestModel(testfield="hello")
-
-        t1 = Template('{% load edit_list_lib %}{% edit_list me test %}')
-        t2 = Template('{% load edit_list_lib %}{% edit_list me %}')
-
-        c1 = Context({'me': me})
-        c2 = Context({'me': tm_inst})
-        c3 = Context({'me': None})
-        c4 = Context({'me': 1.5})
-
-        # Рендерінг при відсутьніх записах у LogEntry повинен бути відсутнім
-        self.assertEqual(LogEntry.objects.all().count(), 0)
-        self.assertEqual(t1.render(c1), '')
-        self.assertEqual(t2.render(c1), '')
-
-        # Рендерінг випадкових обєктів повинен бути відсутнім
-        self.assertEqual(t1.render(c2), '')
-        self.assertEqual(t2.render(c2), '')
-        self.assertEqual(t1.render(c3), '')
-        self.assertEqual(t2.render(c3), '')
-        self.assertEqual(t1.render(c4), '')
-        self.assertEqual(t2.render(c4), '')
-
-        # Додаємо записи і перевіряємо тестовий рендерінг
-        for ch_msg in ch_msgs:
-            LogEntry.objects.log_action(admin.pk, ct.pk, me.pk, force_unicode(me), CHANGE, ch_msg)
-        self.assertEqual(LogEntry.objects.all().count(), len(ch_msgs))
-
-        self.assertEqual(t1.render(c1), ','.join(ch_msgs[-1::-1]))
-
-        # Перевіряємо повноцінний рендерінг
-        restr = 'table.*%s.*%s.*%s' % ch_msgs[-1::-1]
-        self.assertTrue(re.search(restr, t2.render(c1), re.DOTALL))
-
-        # Перевіряємо присутність на головній сторінці таблиці зі змінами
-        # self.client = client.Client()
-        # self.assertTrue(re.search(restr, force_unicode(self.client.get(u'/').content), re.DOTALL))
-
     def test_edit_link(self):
         me = Contacts.objects.get(contact_email='gmt.more@gmail.com')
         ct = ContentType.objects.get_for_model(me)
