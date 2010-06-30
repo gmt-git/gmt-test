@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Помилка при обробці тегу{% endblock %}
+
+{% block content %}
+    <h3>Помилка при обробці тегу: {{ params.tag_name }}</h3>
+    <p>Код помилки: {{ params.err_code }}</p>
+{% endblock %}
+
