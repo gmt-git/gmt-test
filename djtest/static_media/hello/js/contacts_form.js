@@ -7,19 +7,23 @@ $(function() {
         complete:      on_complete
     };
 
-    $('FORM').ajaxForm(options);
+    $('form').ajaxForm(options);
+    $('form input').removeAttr('disabled'); // ящко цього нема, то у FF після оновлення
+                                            // сторінки поля форми disabled
+                                            // (якщо оновлювати без shift
 });
 
 function on_before_submit(formData, jqForm, options) {
-    $('.vDateField+span').remove();
-    $('FORM *').attr('disabled', 'disabled');
+    $('form .vDateField+span').remove();
+    $('div.calendarbox').remove();
+    $('form input').attr('disabled', 'disabled');
 
-    $('#formindicator').html('Форма відправлена');
+    $('#formindicator').html('Форма відправлюється');
     return true;
 }
 
 function on_success() {
-    $('#formindicator').html('');
+    $('#formindicator').html('Форма відправлена');
 }
 
 function on_error(xhr, statusText)  {
@@ -27,6 +31,6 @@ function on_error(xhr, statusText)  {
 }
 
 function on_complete(xhr, statusText)  {
-    $('FORM *').removeAttr('disabled');
+    $('form input').removeAttr('disabled');
     DateTimeShortcuts.init();
 }
