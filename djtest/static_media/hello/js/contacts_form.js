@@ -22,7 +22,12 @@ function on_before_submit(formData, jqForm, options) {
 }
 
 function on_success() {
-    $('#formindicator').html('Форма відправлена');
+    if ($('.errorlist').size() > 0) {
+        $('#formindicator').html('Помилка вводу');
+    }
+    else {
+        $('#formindicator').html('Форма відправлена');
+    }
 }
 
 function on_error(xhr, statusText)  {
