@@ -194,3 +194,4 @@ class EditListTagTest(TestCase):
 
         # Перевіряємо що шаблон з помилкою працює як належить
         self.assertContains(client.Client().get(u'/debug/tags/edit_link/3/'), 'Код помилки: 3')
+        self.assertContains(client.Client().get(u'/debug/tags/edit_link/3/'), 'тегу: edit_link')

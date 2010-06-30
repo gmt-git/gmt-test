@@ -23,3 +23,9 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
 )
+
+urlpatterns += patterns('',
+    (r'^debug/tags/(?P<tag_name>[a-z_]*)/(?P<err_code>\d)/$',
+        'django.views.generic.simple.direct_to_template',
+        {'template': 'debug/tag_rendering_error.html'}),
+)
