@@ -9,9 +9,12 @@ $(function() {
 });
 
 function on_before_submit(formData, jqForm, options) {
+    $('.vDateField+span').remove();
+    $('FORM *').attr('disabled', 'disabled');
     return true;
 }
 
 function on_success(responseText, statusText, xhr, $form)  {
+    $('FORM *').removeAttr('disabled');
     DateTimeShortcuts.init();
 }
