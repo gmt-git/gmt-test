@@ -2,9 +2,15 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 from django.contrib.auth.views import login, logout
 
+from djtest.hello.models import HttpReqs
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
+
+httpreqs_info = {
+    'queryset': HttpReqs.objects.order_by('-date')[:10]
+}
 
 urlpatterns = patterns('',
     # Example:
@@ -16,6 +22,7 @@ urlpatterns = patterns('',
     (r'^edit_contacts_form/$', 'djtest.hello.views.edit_contacts_form'),
     (r'^accounts/login/$', login),
     (r'^accounts/logout/$', logout, {'next_page': '/'}),
+    (r'^httpreqs_log/$', 'django.views.generic.list_detail.object_list', httpreqs_info),
     (r'^static_media/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': settings.STATIC_DOC_ROOT}),
 

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title%}Останні HTTP запроси{% endblock %}
+
+{% block content %}
+    <h2>Останні HTTP запити:</h2>
+    <p><a href='/'>Повернутися на головну</a></p>
+    <table>
+    <tr>
+        <th>Час запиту</th>
+        <th>HTTP метод</th>
+        <th>Шлях запиту</th>
+    </tr>
+        {% for request in object_list %}
+        <tr>
+            <td>{{ request.date|date:"d.m.Y -- H:i:s" }}</td>
+            <td>{{ request.method }}</td>
+            <td>{{ request.full_path }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
