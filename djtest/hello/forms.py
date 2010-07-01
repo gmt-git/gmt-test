@@ -12,6 +12,7 @@ class CalendarWidget(forms.TextInput):
         js = (
             '/static_media/js/jquery.js',
             '/static_media/datePicker/date.js',
+            '/static_media/datePicker/date_ua_utf8.js',
             '/static_media/datePicker/jquery.datePicker.js'
         )
 
@@ -27,13 +28,15 @@ class ContactsFormT5(forms.ModelForm):
 class ContactsForm(forms.ModelForm):
     birth_date = forms.DateField(widget=CalendarWidget())
     class Media:
-        js = ('/static_media/js/jquery.js',
+        js = (
+            '/static_media/js/jquery.js',
             '/static_media/js/jquery.form.js',
-            '/static_media/hello/js/contacts_form.js')
+            '/static_media/hello/js/contacts_form.js',
+        )
 
         css = { 'all': (
-            '/static_media/hello/css/datePicker.css',
             '/media/css/base.css',
+            '/static_media/hello/css/datePicker.css',
         )}
 
     class Meta:

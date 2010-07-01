@@ -7,3 +7,13 @@ a.dp-choose-date {
 a.dp-choose-date img {
     border-style: none;
 }
+
+/* то что перезагружалось base.css */
+table.jCalendar th,td {
+    border: 0;
+    font-size: 10px;
+    font-family: arial, sans-serif;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 1.2em;
+}
