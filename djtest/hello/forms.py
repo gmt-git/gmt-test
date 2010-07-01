@@ -7,15 +7,17 @@ from django.contrib.admin.widgets import AdminDateWidget
 
 from djtest.hello.models import Contacts
 
-class CalendarWidget(AdminDateWidget):
+class CalendarWidget(forms.TextInput):
     class Media:
-        AMP = settings.ADMIN_MEDIA_PREFIX
-        extend = False
+        js = (
+            '/static_media/datePicker/date.js',
+            '/static_media/datePicker/jquery.datePicker.js'
+        )
 
-        js = ('/admin/jsi18n/', AMP + 'js/core.js') + AdminDateWidget.Media.js
+        css = {'all': ('/static_media/datePicker/datePicker.css', )}
 
-        css = {'all': (AMP + 'css/forms.css', AMP + 'css/base.css', \
-            AMP + 'css/widgets.css')}
+        def __init__(self):
+            super(forms.TextInput, self).__init__(attrs={'class': 'date-pick'})
 
 class ContactsFormT5(forms.ModelForm):
     class Meta:
