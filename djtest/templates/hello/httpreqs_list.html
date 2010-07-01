@@ -8,12 +8,14 @@
     <table>
     <tr>
         <th>Час запиту</th>
+        <th>Пріоритет</th>
         <th>HTTP метод</th>
         <th>Шлях запиту</th>
     </tr>
         {% for request in object_list %}
         <tr>
             <td>{{ request.date|date:"d.m.Y -- H:i:s" }}</td>
+            <td>{{ request.priority }}</td>
             <td>{{ request.method }}</td>
             <td>{{ request.full_path }}</td>
         </tr>
