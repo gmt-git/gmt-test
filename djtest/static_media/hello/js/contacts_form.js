@@ -17,6 +17,7 @@ $(function() {
 });
 
 function on_before_submit(formData, jqForm, options) {
+    $('#id_birth_date').dpSetDisabled(true);
     $('form input').attr('disabled', 'disabled');
 
     $('#formindicator').html('Форма відправлюється');
@@ -37,6 +38,7 @@ function on_error(xhr, statusText)  {
 }
 
 function on_complete(xhr, statusText)  {
-    $('form input').removeAttr('disabled');
     $('.date-pick').datePicker({startDate:'1900-01-01'});
+    $('#id_birth_date').dpSetDisabled(false);
+    $('form input').removeAttr('disabled');
 }
