@@ -302,7 +302,7 @@ class ListViewTest(TestCase):
 
         # Тест присутності записів у порядку пріоритету (спочатку '0.*/testurl/8/')
         restr = '.*'.join(['%d.*testurl.%d' % (i,8-i) for i in range(9)])
-        response = tcl.get('/httpreqs_log/')
+        response = tcl.get('/httpreqs_with_priority_log/')
         self.assertTrue(re.search(restr, response.content, re.DOTALL))
 
 

@@ -12,6 +12,10 @@ httpreqs_info = {
     'queryset': HttpReqs.objects.order_by('-date')[:10]
 }
 
+httpreqs_with_priority_info = {
+    'queryset': HttpReqs.objects.order_by('priority')[:10]
+}
+
 urlpatterns = patterns('',
     # Example:
     # (r'^djtest/', include('djtest.foo.urls')),
@@ -23,6 +27,8 @@ urlpatterns = patterns('',
     (r'^accounts/login/$', login),
     (r'^accounts/logout/$', logout, {'next_page': '/'}),
     (r'^httpreqs_log/$', 'django.views.generic.list_detail.object_list', httpreqs_info),
+    (r'^httpreqs_with_priority_log/$', 'django.views.generic.list_detail.object_list',
+        httpreqs_with_priority_info),
     (r'^static_media/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': settings.STATIC_DOC_ROOT}),
 

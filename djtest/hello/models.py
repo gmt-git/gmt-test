@@ -46,6 +46,7 @@ class Contacts(models.Model):
 class HttpReqs(models.Model):
 
     date = models.DateTimeField()
+    priority = models.IntegerField(default=0)
     method = models.CharField(max_length=10)
     full_path = models.CharField(max_length=300)
     meta = models.TextField()
