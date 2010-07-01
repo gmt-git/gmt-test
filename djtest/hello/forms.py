@@ -30,6 +30,8 @@ class ContactsForm(forms.ModelForm):
             '/static_media/js/jquery.form.js',
             '/static_media/hello/js/contacts_form.js')
 
+        css = {'all': ('/static_media/hello/css/datePicker.css', )}
+
     class Meta:
         model = Contacts
         fields = ('birth_date', 'contact_email', 'last_name', 'first_name')
