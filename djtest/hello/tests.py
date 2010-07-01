@@ -150,7 +150,7 @@ class EditContactsFormTest(TestCase):
         self.client = client.Client()
         self.assertTrue(self.client.login(username='admin', password='admin'))
         response = self.client.get('/edit_contacts_form/')
-        self.assertContains(response, 'class="vDateField"')
+        self.assertContains(response, 'class="date-pick"')
 
 class EditListTagTest(TestCase):
 
@@ -260,13 +260,13 @@ class JQueryFormTest(TestCase):
             'birth_date': '1908-02-29'
         }
 
-        # Відповідь повинна віддавати код 200 та містити vDateField наприклад
+        # Відповідь повинна віддавати код 200 та містити 'class="date-pick"'
         # У всякому разі відповідь повинна отримувати новий вміст форми
         # З помилками валідації, чи ні
         response = self.client.post('/edit_contacts_form/', post_data,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'class="vDateField"')
+        self.assertContains(response, 'class="date-pick"')
         self.assertNotContains(response, '<head>')
 
         post_data['birth_date'] = ''
@@ -275,7 +275,7 @@ class JQueryFormTest(TestCase):
         response = self.client.post('/edit_contacts_form/', post_data,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'class="vDateField"')
+        self.assertContains(response, 'class="date-pick"')
         self.assertNotContains(response, '<head>')
 
 
