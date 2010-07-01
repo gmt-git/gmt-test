@@ -11,9 +11,9 @@ $(function() {
     $('form input').removeAttr('disabled'); // ящко цього нема, то у FF після оновлення
                                             // сторінки поля форми disabled
                                             // (якщо оновлювати без shift
-    Date.firstDayOfWeek = 0;
+    Date.firstDayOfWeek = 1;
     Date.format = 'yyyy-mm-dd';
-    $('.date-pick').datePicker();
+    $('.date-pick').datePicker({startDate:'1900-01-01'});
 });
 
 function on_before_submit(formData, jqForm, options) {
@@ -38,5 +38,5 @@ function on_error(xhr, statusText)  {
 
 function on_complete(xhr, statusText)  {
     $('form input').removeAttr('disabled');
-    $('.date-pick').datePicker();
+    $('.date-pick').datePicker({startDate:'1900-01-01'});
 }
