@@ -288,6 +288,12 @@ class ListViewTest(TestCase):
         for test_url in test_urls[:-10:-1]:
             self.assertContains(response, test_url)
 
+    def test_httpreqs_list_with_priority(self):
+        # Генеруємо запити
+        tcl = client.Client()
+        test_urls = ['/testurl/%d/' % i for i in range(9)]
+        resp_list = [tcl.get(test_url) for test_url in test_urls]
+
 
 
 __test__ = {"commands": printmodels.handle_test}
