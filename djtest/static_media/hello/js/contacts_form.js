@@ -11,10 +11,12 @@ $(function() {
     $('form input').removeAttr('disabled'); // ящко цього нема, то у FF після оновлення
                                             // сторінки поля форми disabled
                                             // (якщо оновлювати без shift
+    Date.firstDayOfWeek = 0;
+    Date.format = 'yyyy-mm-dd';
+    $('.date-pick').datePicker();
 });
 
 function on_before_submit(formData, jqForm, options) {
-    $('.vDateField+span').hide().insertAfter('#update_target');
     $('form input').attr('disabled', 'disabled');
 
     $('#formindicator').html('Форма відправлюється');
@@ -36,5 +38,5 @@ function on_error(xhr, statusText)  {
 
 function on_complete(xhr, statusText)  {
     $('form input').removeAttr('disabled');
-    $('#update_target+span').insertAfter('.vDateField').show();
+    $('.date-pick').datePicker();
 }
