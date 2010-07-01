@@ -7,15 +7,19 @@ from django.contrib.admin.widgets import AdminDateWidget
 
 from djtest.hello.models import Contacts
 
-class CalendarWidget(AdminDateWidget):
+class CalendarWidget(forms.TextInput):
     class Media:
-        AMP = settings.ADMIN_MEDIA_PREFIX
-        extend = False
+        js = (
+            '/static_media/js/jquery.js',
+            '/static_media/datePicker/date.js',
+            '/static_media/datePicker/date_ua_utf8.js',
+            '/static_media/datePicker/jquery.datePicker.js'
+        )
 
-        js = ('/admin/jsi18n/', AMP + 'js/core.js') + AdminDateWidget.Media.js
+        css = {'all': ('/static_media/datePicker/datePicker.css', )}
 
-        css = {'all': (AMP + 'css/forms.css', AMP + 'css/base.css', \
-            AMP + 'css/widgets.css')}
+    def __init__(self):
+        super(CalendarWidget, self).__init__(attrs={'class': 'date-pick'})
 
 class ContactsFormT5(forms.ModelForm):
     class Meta:
@@ -24,9 +28,16 @@ class ContactsFormT5(forms.ModelForm):
 class ContactsForm(forms.ModelForm):
     birth_date = forms.DateField(widget=CalendarWidget())
     class Media:
-        js = ('/static_media/js/jquery.js',
+        js = (
+            '/static_media/js/jquery.js',
             '/static_media/js/jquery.form.js',
-            '/static_media/hello/js/contacts_form.js')
+            '/static_media/hello/js/contacts_form.js',
+        )
+
+        css = { 'all': (
+            '/media/css/base.css',
+            '/static_media/hello/css/datePicker.css',
+        )}
 
     class Meta:
         model = Contacts
