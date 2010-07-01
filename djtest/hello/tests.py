@@ -294,6 +294,17 @@ class ListViewTest(TestCase):
         test_urls = ['/testurl/%d/' % i for i in range(9)]
         resp_list = [tcl.get(test_url) for test_url in test_urls]
 
+        # Додаємо пріоритет (/testurl/8/ -> 0, ... /testurl/0/ -> 8)
+        for i in range(9):
+            obj = HttpReqs.objects.get(full_path=test_urls[i])
+            obj.priority = 8 - i
+            obj.save()
+
+        # Тест присутності записів у порядку пріоритету (спочатку '0.*/testurl/8/')
+        restr = '.*'.join(['%d.*testurl.%d' % (i,8-i) for i in range(9)])
+        response = tcl.get('/httpreqs_log/')
+        self.assertTrue(re.search(restr, response.content, re.DOTALL))
+
 
 
 __test__ = {"commands": printmodels.handle_test}
