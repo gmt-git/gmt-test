@@ -1,21 +1,9 @@
-input.dp-applied {
-	width: 140px;
-	float: left;
-}
-
 a.dp-choose-date {
-	float: left;
-	width: 16px;
-	height: 16px;
-	padding: 0;
-	margin: 5px 3px 0;
-	display: block;
-	text-indent: -2000px;
-	overflow: hidden;
-	background: url(../images/calendar.png) no-repeat; 
+    padding: 0;
+    margin: 0 5px 0;
+    vertical-align: middle;
 }
 
-a.dp-choose-date.dp-disabled {
-	background-position: 0 -20px;
-	cursor: default;
+a.dp-choose-date img {
+    border-style: none;
 }

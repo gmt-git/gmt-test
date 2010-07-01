@@ -16,9 +16,7 @@ $(function() {
 });
 
 function on_before_submit(formData, jqForm, options) {
-    $('.date-pick').dpSetDisabled(true);
-    $('form input').attr('disabled', 'disabled');
-
+    form_disable();
     $('#formindicator').html('Форма відправлюється');
     return true;
 }
@@ -51,4 +49,10 @@ function calendar_init() {
         $('.date-pick').dpDisplay(this);
         return false;
     });
+}
+
+function form_disable() {
+    $('.date-pick').dpSetDisabled(true);
+    $('.dp-choose-date img').attr('src', '/static_media/hello/images/btn_disabled.png');
+    $('form input').attr('disabled', 'disabled');
 }
