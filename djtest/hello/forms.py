@@ -10,14 +10,15 @@ from djtest.hello.models import Contacts
 class CalendarWidget(forms.TextInput):
     class Media:
         js = (
+            '/static_media/js/jquery.js',
             '/static_media/datePicker/date.js',
             '/static_media/datePicker/jquery.datePicker.js'
         )
 
         css = {'all': ('/static_media/datePicker/datePicker.css', )}
 
-        def __init__(self):
-            super(forms.TextInput, self).__init__(attrs={'class': 'date-pick'})
+    def __init__(self):
+        super(CalendarWidget, self).__init__(attrs={'class': 'date-pick'})
 
 class ContactsFormT5(forms.ModelForm):
     class Meta:
@@ -30,7 +31,10 @@ class ContactsForm(forms.ModelForm):
             '/static_media/js/jquery.form.js',
             '/static_media/hello/js/contacts_form.js')
 
-        css = {'all': ('/static_media/hello/css/datePicker.css', )}
+        css = { 'all': (
+            '/static_media/hello/css/datePicker.css',
+            '/media/css/base.css',
+        )}
 
     class Meta:
         model = Contacts
