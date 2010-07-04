@@ -1,8 +1,13 @@
 # Django settings for djtest project.
 import os
+from posixpath import join as posix_join
 
 PROJ_ROOT = os.path.dirname(os.path.realpath(__file__))
-STATIC_DOC_ROOT = os.path.join(PROJ_ROOT, 'static_media')
+
+if os.sep == '\\':
+    PROJ_ROOT = PROJ_ROOT.replace('\\', '/')
+
+STATIC_DOC_ROOT = posix_join(PROJ_ROOT, 'static_media')
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -14,7 +19,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = os.path.join(PROJ_ROOT, 'db.sqlite')             # Or path to database file if using sqlite3.
+DATABASE_NAME = posix_join(PROJ_ROOT, 'db.sqlite')             # Or path to database file if using sqlite3.
 DATABASE_USER = ''             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
@@ -74,7 +79,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(PROJ_ROOT, 'templates')
+    posix_join(PROJ_ROOT, 'templates')
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
