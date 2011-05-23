@@ -28,8 +28,9 @@ def settings_cxpr(request):
 
 
 def cxpr_test(request):
-    return render_to_response('cxpr_test.html', 
+    return render_to_response('cxpr_test.html',
                             context_instance=RequestContext(request))
+
 
 def edit_contacts(request):
     me = Contacts.objects.get(contact_email='gmt.more@gmail.com')
@@ -44,6 +45,7 @@ def edit_contacts(request):
     return render_to_response('edit_contacts.html', {'form': form})
 
 auth_req_edit_contacts = login_required(edit_contacts)
+
 
 @login_required
 def edit_contacts_form(request):
