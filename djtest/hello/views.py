@@ -22,11 +22,14 @@ def home_page(request):
             "me": obj
         })
 
+
 def settings_cxpr(request):
     return {'settings': settings}
 
+
 def cxpr_test(request):
-    return render_to_response('cxpr_test.html', context_instance=RequestContext(request))
+    return render_to_response('cxpr_test.html', 
+                            context_instance=RequestContext(request))
 
 def edit_contacts(request):
     me = Contacts.objects.get(contact_email='gmt.more@gmail.com')
