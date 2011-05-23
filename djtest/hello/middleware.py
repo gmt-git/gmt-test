@@ -4,6 +4,7 @@
 from datetime import datetime
 from djtest.hello.models import HttpReqs
 
+
 class HttpReqsSave():
 
     def process_request(self, request):
