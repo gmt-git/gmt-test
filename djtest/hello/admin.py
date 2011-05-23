@@ -3,4 +3,3 @@ from djtest.hello.models import Contacts, HttpReqs
 
 admin.site.register(Contacts)
 admin.site.register(HttpReqs)
-
