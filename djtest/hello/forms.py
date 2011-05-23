@@ -1,11 +1,12 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 
 from django import forms
 from django.conf import settings
 from django.contrib.admin.widgets import AdminDateWidget
 
 from djtest.hello.models import Contacts
+
 
 class CalendarWidget(forms.TextInput):
     class Media:
