@@ -14,5 +14,7 @@ class HttpReqsSave():
         req.meta = "\n".join(
             ["%s=%s" % (k, v) for k, v in request.META.items()]
         )
-        req.cookies = "\n".join(["%s=%s" % (k, v) for k, v in request.COOKIES.items()])
+        req.cookies = "\n".join(
+            ["%s=%s" % (k, v) for k, v in request.COOKIES.items()]
+        )
         req.save()
