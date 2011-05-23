@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -10,15 +10,16 @@ from django.http import HttpResponse, HttpResponseRedirect
 from djtest.hello.models import Contacts
 from djtest.hello.forms import ContactsFormT5, ContactsForm
 
+
 def home_page(request):
     obj = Contacts.objects.get(contact_email='gmt.more@gmail.com')
-    
+
     return render_to_response('home_page.html',
         {
-            "first_name" : obj.first_name,
-            "last_name" : obj.last_name,
-            "contact_email" : obj.contact_email,
-            "me" : obj
+            "first_name": obj.first_name,
+            "last_name": obj.last_name,
+            "contact_email": obj.contact_email,
+            "me": obj
         })
 
 def settings_cxpr(request):
