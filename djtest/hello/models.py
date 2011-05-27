@@ -37,6 +37,7 @@ def modelslog_delete_handler(sender, **kwargs):
 post_save.connect(modelslog_save_handler)
 post_delete.connect(modelslog_delete_handler)
 
+
 class Contacts(models.Model):
 
     first_name = models.CharField(max_length=100)
