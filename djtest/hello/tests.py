@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 
 import os
 import re
@@ -20,6 +20,7 @@ from django.utils.encoding import force_unicode
 from djtest.hello.models import HttpReqs, Contacts, ModelsLog
 from djtest.hello.forms import CalendarWidget
 from djtest.hello.management.commands import printmodels
+
 
 class HelloTest(TestCase):
 
