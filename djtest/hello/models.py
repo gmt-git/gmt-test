@@ -1,9 +1,10 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 
 from django.db import models
 from django.db.models.signals import post_save, post_delete
 from django.contrib.contenttypes.models import ContentType
+
 
 def modelslog_save_handler(sender, **kwargs):
     excl_ct = ContentType.objects.get_for_model(ModelsLog)
@@ -20,6 +21,7 @@ def modelslog_save_handler(sender, **kwargs):
         mlog.action_flag = 'MOD'
 
     mlog.save()
+
 
 def modelslog_delete_handler(sender, **kwargs):
     excl_ct = ContentType.objects.get_for_model(ModelsLog)
