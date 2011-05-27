@@ -22,9 +22,11 @@ class CalendarWidget(forms.TextInput):
     def __init__(self):
         super(CalendarWidget, self).__init__(attrs={'class': 'date-pick'})
 
+
 class ContactsFormT5(forms.ModelForm):
     class Meta:
         model = Contacts
+
 
 class ContactsForm(forms.ModelForm):
     birth_date = forms.DateField(widget=CalendarWidget())
