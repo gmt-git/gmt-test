@@ -30,6 +30,7 @@ class ContactsFormT5(forms.ModelForm):
 
 class ContactsForm(forms.ModelForm):
     birth_date = forms.DateField(widget=CalendarWidget())
+
     class Media:
         js = (
             '/static_media/js/jquery.js',
@@ -37,7 +38,7 @@ class ContactsForm(forms.ModelForm):
             '/static_media/hello/js/contacts_form.js',
         )
 
-        css = { 'all': (
+        css = {'all': (
             '/media/css/base.css',
             '/static_media/hello/css/datePicker.css',
         )}
