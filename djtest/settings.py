@@ -2,6 +2,12 @@
 import os
 from posixpath import join as posix_join
 
+
+def rel(*x):
+    return os.path.normpath(
+        os.path.join(os.path.abspath(os.path.dirname(__file__)), *x),
+    )
+
 PROJ_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 if os.sep == '\\':
@@ -19,7 +25,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'sqlite3'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = '../deploy.sqlite3'             # Or path to database file if using sqlite3.
+DATABASE_NAME = rel('..', '..', 'deploy.sqlite3')             # Or path to database file if using sqlite3.
 DATABASE_USER = ''             # Not used with sqlite3.
 DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
